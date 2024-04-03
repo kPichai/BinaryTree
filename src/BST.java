@@ -47,8 +47,20 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        // TODO: Complete the search function
-        return false;
+        return searchRecursively(val, root);
+    }
+
+    public static boolean searchRecursively(int val, BSTNode root) {
+        if (root.getLeft() == null && root.getRight() == null && root.getVal() != val) {
+            return false;
+        } else if (root.getVal() == val) {
+            return true;
+        }
+        if (val > root.getVal()) {
+            return searchRecursively(val, root.getRight());
+        } else {
+            return searchRecursively(val, root.getRight());
+        }
     }
 
     /**
