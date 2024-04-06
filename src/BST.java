@@ -22,13 +22,12 @@ public class BST {
      * with some default values
      */
     public void setupTestData() {
-        this.root = new BSTNode(10);
-        this.root.setLeft(new BSTNode(5));
-        this.root.setRight(new BSTNode((15)));
-        this.root.getLeft().setLeft(new BSTNode(3));
-        this.root.getLeft().setRight(new BSTNode(9));
+        this.root = new BSTNode(4);
+        this.root.setLeft(new BSTNode(2));
+        this.root.getLeft().setLeft(new BSTNode(1));
+        this.root.getLeft().setRight(new BSTNode(3));
+        this.root.setRight(new BSTNode((7)));
     }
-
     /**
      * Prints the provided ArrayList of nodes
      * in the form node1-node2-node3
@@ -67,13 +66,14 @@ public class BST {
         }
 
         // Recursive steps if you aren't at a leaf
-        if (val > root.getVal()) {
+        if (val > root.getVal() && root.getRight() != null) {
             // Calls algorithm on right side of root if the val is greater
             return searchRecursively(val, root.getRight());
-        } else {
-            // Calls algorithm on left side of root if the val is less
-            return searchRecursively(val, root.getLeft());
         }
+
+        // Calls algorithm on left side of root if the val is less
+        return searchRecursively(val, root.getLeft());
+
     }
 
     /**
@@ -251,11 +251,11 @@ public class BST {
         BST tree = new BST();
         tree.setupTestData();
 
-        System.out.println("\nSearching for 15 in the tree");
-        System.out.println(tree.search(15));
+        System.out.println("\nSearching for 14 in the tree");
+        System.out.println(tree.search(1));
 
-        System.out.println("\nSearching for 22 in the tree");
-        System.out.println(tree.search(22));
+        System.out.println("\nSearching for 6 in the tree");
+        System.out.println(tree.search(4));
 
         System.out.println("\nPreorder traversal of binary tree is");
         ArrayList<BSTNode> sol = tree.getPreorder();
@@ -264,15 +264,13 @@ public class BST {
         System.out.println("\nInorder traversal of binary tree is");
         sol = tree.getInorder();
         printNodes(sol);
+        tree.insert(5);
+        sol = tree.getInorder();
+        printNodes(sol);
 
         System.out.println("\nPostorder traversal of binary tree is");
         sol = tree.getPostorder();
         printNodes(sol);
         System.out.println(tree.isValidBST());
-
-        tree.insert(8);
-        System.out.println("\nInorder traversal of binary tree is");
-        sol = tree.getInorder();
-        printNodes(sol);
     }
 }
